@@ -2,7 +2,8 @@ package main
 
 import (
 	"log"
-	"sqllite/models"
+
+	rec "github.com/yongzhena/go-sqllite"
 )
 
 func checkErr(err error) {
@@ -15,22 +16,22 @@ func main() {
 
 	log.Println("test sqllite...")
 
-	// log.Println("InitRecAreas...")
-	// err := models.InitRecAreas()
-	// if err != nil {
-	// 	log.Fatal(err.Error())
-	// }
-	// log.Println("InitRecAreas ok!")
-	//var opt models.RecAPI
-	opt := models.NewRecAPI(true)
-	err := opt.OpenRecAreas()
+	log.Println("InitRecAreas...")
+	opt := rec.NewRecAPI(true)
+	err := opt.InitRecAreas()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	log.Println("InitRecAreas ok!")
+
+	err = opt.OpenRecAreas()
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 
 	log.Println("OpenRecAreas ok!")
 
-	id, err := opt.SaveRec(models.RecArea01, []byte("123456789011"), 0)
+	id, err := opt.SaveRec(1, []byte("123456789011"), 0)
 	if err != nil {
 		log.Println(err.Error())
 	}
@@ -51,10 +52,10 @@ func main() {
 	}
 	log.Printf("over,SaveRec ok!,area=%d,id=%d\n", 2, id)
 
-	num := opt.GetNoUploadNum(models.RecArea01)
-	log.Printf("area=%d,NoUploadNum=%d\n", models.RecArea01, num)
+	num := opt.GetNoUploadNum(1)
+	log.Printf("area=%d,NoUploadNum=%d\n", 1, num)
 
-	recp, err := opt.ReadRecNotServer(models.RecArea01, 1)
+	recp, err := opt.ReadRecNotServer(1, 1)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -65,10 +66,10 @@ func main() {
 		log.Fatal(err.Error())
 	}
 
-	num = opt.GetNoUploadNum(models.RecArea01)
-	log.Printf("area=%d,NoUploadNum=%d\n", models.RecArea01, num)
+	num = opt.GetNoUploadNum(1)
+	log.Printf("area=%d,NoUploadNum=%d\n", 1, num)
 
-	num = opt.GetNoUploadNum(models.RecArea02)
-	log.Printf("area=%d,NoUploadNum=%d\n", models.RecArea02, num)
+	num = opt.GetNoUploadNum(2)
+	log.Printf("area=%d,NoUploadNum=%d\n", 2, num)
 
 }

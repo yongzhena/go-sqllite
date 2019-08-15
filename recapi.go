@@ -1,4 +1,4 @@
-package models
+package sqllite
 
 // 配置项
 const (
