@@ -29,10 +29,7 @@ func main() {
 	}
 
 	log.Println("OpenRecAreas ok!")
-	// var rec models.Records
-	// rec.RecType = 2
-	// rec.Ext = "ext"
-	// rec.Res = "Res"
+
 	id, err := opt.SaveRec(models.RecArea01, []byte("123456789011"), 0)
 	if err != nil {
 		log.Println(err.Error())
